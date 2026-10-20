@@ -1,0 +1,46 @@
+# Конфигурация краулера для Лабораторной работы №2
+# Тематика: Космонавтика и авиация (Space & Aviation)
+
+db:
+  type: sqlite
+  path: robot.db
+
+logic:
+  user_agent: "MAI-IR-Lab02-SpaceRobot/1.0 (educational; student crawler)"
+  delay_seconds: 0.25         # Пауза между запросами (вежливый краулинг)
+  max_pages: 5000             # Лимит страниц на один запуск
+  recrawl_after_seconds: 604800  # Переобход страниц через 7 дней
+  max_links_per_page: 150     # Сколько максимум ссылок брать с одной страницы
+  max_frontier: 250000        # Максимальный размер очереди
+  commit_every: 50            # Сброс транзакций в БД каждые 50 операций
+
+  sources:
+    # 1. Англоязычная Википедия
+    - name: wikipedia_en
+      seeds:
+        - "https://en.wikipedia.org/wiki/Space_exploration"
+        - "https://en.wikipedia.org/wiki/Astronautics"
+        - "https://en.wikipedia.org/wiki/Aviation"
+        - "https://en.wikipedia.org/wiki/Spacecraft"
+        - "https://en.wikipedia.org/wiki/Human_spaceflight"
+        - "https://en.wikipedia.org/wiki/Rocketry"
+        - "https://en.wikipedia.org/wiki/Aerospace_engineering"
+        - "https://en.wikipedia.org/wiki/Artificial_satellite"
+        - "https://en.wikipedia.org/wiki/Space_mission"
+        - "https://en.wikipedia.org/wiki/Aircraft"
+      allowed_domains:
+        - "en.wikipedia.org"
+      allow_prefixes:
+        - "https://en.wikipedia.org/wiki/"
+
+    # 2. Новости космонавтики Spaceflight Now
+    - name: spaceflightnow
+      seeds:
+        - "https://spaceflightnow.com/"
+        - "https://spaceflightnow.com/category/news/"
+        - "https://spaceflightnow.com/category/launches/"
+      allowed_domains:
+        - "spaceflightnow.com"
+        - "www.spaceflightnow.com"
+      allow_prefixes:
+        - "https://spaceflightnow.com/"
